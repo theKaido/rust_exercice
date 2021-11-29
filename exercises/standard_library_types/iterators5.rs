@@ -35,7 +35,11 @@ fn count_for(map: &HashMap<String, Progress>, value: Progress) -> usize {
 fn count_iterator(map: &HashMap<String, Progress>, value: Progress) -> usize {
     // map is a hashmap with String keys and Progress values.
     // map = { "variables1": Complete, "from_str": None, ... }
-    let out = map.iter().fold(0, |count, val| if val.1 == &value { count + 1} else {count});
+    let out = map.iter().fold(0, |count, val| if val.1 == &value {
+                                                    count + 1
+                                                } else {
+                                                    count
+                                                });
     out
 
 
@@ -58,7 +62,14 @@ fn count_collection_iterator(collection: &[HashMap<String, Progress>], value: Pr
     // collection = [{ "variables1": Complete, "from_str": None, ... },
     //     { "variables2": Complete, ... }, ... ]
  
-    let out = collection.iter().fold(0, |count_a, map| count_a + map.iter().fold(0, |count_b, val| if val.1 == &value { count_b + 1} else {count_b}));
+    let out = collection.iter().fold(0, |count_a, map| count_a +
+         map.iter().fold(0, |count_b, val| if val.1 == &value {
+                                                 count_b + 1
+                                            } else {
+                                                 count_b
+                                                }
+                        )
+    );
     out
 
 }
