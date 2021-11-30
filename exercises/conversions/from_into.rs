@@ -33,12 +33,43 @@ impl Default for Person {
 // If while parsing the age, something goes wrong, then return the default of Person
 // Otherwise, then return an instantiated Person object with the results
 
-// I AM NOT DONE
+// I AM  DONE
 
 impl From<&str> for Person {
     fn from(s: &str) -> Person {
+        let mut List = s.split(",");
+        let mut verif = false;
+        let mut age = "";
+        let mut name = "";
+        let mut compteur = 0;
+
+        while let Some(a)= List.next(){
+            compteur +=1;
+            if a.len() == 0 {
+                return Person::default();
+            }
+            if verif{
+                age = a;
+            }else{
+                name = a;
+                verif = true;
+            }
+        } 
+        if compteur != 2 {
+            return Person::default();
+        }
+        for i in age.to_string().chars() {
+            if !i.is_numeric() {
+                return Person::default();
+            }          
+        }
+        Person {
+            name:name.to_string(), age:age.to_string().parse::<usize>().unwrap(), 
+        }
+        
     }
 }
+
 
 fn main() {
     // Use the `from` function
